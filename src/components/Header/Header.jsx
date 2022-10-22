@@ -11,12 +11,10 @@ const Header = ({ setCoordinates }) => {
     const [autocomplete, setAutocomplete] = useState(null)
 
     const onLoad = (autoc) => {
-        console.log(autoc);
         setAutocomplete(autoc)
     }
 
     const onPlaceChanged = () => {
-        console.log(autocomplete);
         if (autocomplete) {
             const lat = autocomplete.getPlace().geometry.location.lat()
             const lng = autocomplete.getPlace().geometry.location.lng()
