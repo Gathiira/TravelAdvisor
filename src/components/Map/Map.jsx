@@ -34,8 +34,8 @@ const Map = ({ coordinates, setCoordinates, setBounds, places, setChildClicked }
                     <div
                         key={i}
                         className={classes.markerContainer}
-                        lat={Number(place.latitude)}
-                        lng={Number(place.longitude)}
+                        lat={Number(place.latitude) || 0}
+                        lng={Number(place.longitude) || 0}
                     >
                         {!isDesktop ? (
                             <LocationOnOutlinedIcon color='primary' fontSize='large' />
