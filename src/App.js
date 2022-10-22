@@ -9,8 +9,13 @@ import { getPlacesData } from './api';
 
 function App() {
   const [places, setPlaces] = useState([])
+  const [filteredPlaces, setFilteredPlaces] = useState([])
   const [childClicked, setChildClicked] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
+
+  const [type, setType] = useState('restaurants')
+  const [rating, setRating] = useState('')
 
   const [coordinates, setCoordinates] = useState({
     lat: -1.286389,
@@ -26,13 +31,21 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true)
-    getPlacesData(bounds?.sw, bounds?.ne)
+    getPlacesData(bounds?.sw, bounds?.ne, type)
       .then((data) => {
         console.log(data);
         setPlaces(data)
         setIsLoading(false)
+        setFilteredPlaces([])
       })
-  }, [coordinates, bounds])
+  }, [coordinates, bounds, type])
+
+
+  useEffect(() => {
+    const filteredPlaces = places?.filter((place) => place.rating > rating)
+    setFilteredPlaces(filteredPlaces)
+  }, [rating])
+
 
   return (
     <>
@@ -41,9 +54,13 @@ function App() {
       <Grid container spacing={3} style={{ width: '100%' }} >
         <Grid item xs={12} md={4} >
           <List
-            places={places}
+            places={filteredPlaces.length ? filteredPlaces : places}
             childClicked={childClicked}
             isLoading={isLoading}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
           />
         </Grid>
         <Grid item xs={12} md={8} >
@@ -51,7 +68,7 @@ function App() {
             coordinates={coordinates}
             setCoordinates={setCoordinates}
             setBounds={setBounds}
-            places={places}
+            places={filteredPlaces.length ? filteredPlaces : places}
             setChildClicked={setChildClicked}
           />
         </Grid>

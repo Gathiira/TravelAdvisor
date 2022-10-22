@@ -11,7 +11,6 @@ const PlaceDetails = ({ place, selected, refProp }) => {
     const defaultImage = 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
 
     if (selected) {
-        console.log('shifting ---> ');
         refProp?.current?.scrollIntoView({ behavior: "smooth", block: 'start' })
     }
 
