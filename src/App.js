@@ -30,15 +30,16 @@ function App() {
   }, [])
 
   useEffect(() => {
-    setIsLoading(true)
-    getPlacesData(bounds?.sw, bounds?.ne, type)
-      .then((data) => {
-        console.log(data);
-        setPlaces(data)
-        setIsLoading(false)
-        setFilteredPlaces([])
-      })
-  }, [coordinates, bounds, type])
+    if (bounds) {
+      setIsLoading(true)
+      getPlacesData(bounds.sw, bounds.ne, type)
+        .then((data) => {
+          setPlaces(data?.filter((place) => place.name))
+          setIsLoading(false)
+          setFilteredPlaces([])
+        })
+    }
+  }, [bounds, type])
 
 
   useEffect(() => {
@@ -50,7 +51,7 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header setCoordinates={setCoordinates} />
       <Grid container spacing={3} style={{ width: '100%' }} >
         <Grid item xs={12} md={4} >
           <List
