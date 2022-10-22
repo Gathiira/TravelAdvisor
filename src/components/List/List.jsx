@@ -15,7 +15,7 @@ const List = ({ places, childClicked }) => {
     console.log({ childClicked });
 
     useEffect(() => {
-        const refs = Array(places.length).fill((_, i) => refs[i] || createRef())
+        const refs = Array(places?.length).fill((_, i) => refs[i] || createRef())
         setElRefs(refs)
     }, [places])
 
