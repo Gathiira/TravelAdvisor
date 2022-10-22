@@ -17,6 +17,12 @@ export default makeStyles((theme) => ({
         marginBottom: '30px',
     },
     list: {
-        height: '75vh', overflow: 'auto',
+        height: '82vh', overflow: 'auto', overflowY: 'scroll'
     },
+    title: {
+        display: 'flex', flexDirection: 'column', gap: '10px'
+    },
+    title2: {
+        display: 'flex', justifyContent: 'space-between', marginBottom: '10px'
+    }
 }));
