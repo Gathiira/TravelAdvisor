@@ -6,11 +6,17 @@ import Rating from '@material-ui/lab/Rating'
 
 import useStyles from './styles'
 
-const PlaceDetails = ({ place }) => {
+const PlaceDetails = ({ place, selected, refProp }) => {
     const classes = useStyles()
     const defaultImage = 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'
+
+    if (selected) {
+        console.log('shifting ---> ');
+        refProp?.current?.scrollIntoView({ behavior: "smooth", block: 'start' })
+    }
+
     return (
-        <Card elevation={6}>
+        <Card elevation={6} ref={refProp}>
             <CardMedia style={{ height: 350 }} image={place?.photo ? place.photo.images.large.url : defaultImage} title={place?.name} />
             <CardContent>
                 <Typography gutterBottom variant='h5' >

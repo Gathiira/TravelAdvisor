@@ -10,6 +10,7 @@ import { getPlacesData } from './api';
 function App() {
   const [places, setPlaces] = useState([])
   const [childClicked, setChildClicked] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [coordinates, setCoordinates] = useState({
     lat: -1.286389,
@@ -24,10 +25,12 @@ function App() {
   }, [])
 
   useEffect(() => {
+    setIsLoading(true)
     getPlacesData(bounds?.sw, bounds?.ne)
       .then((data) => {
         console.log(data);
         setPlaces(data)
+        setIsLoading(false)
       })
   }, [coordinates, bounds])
 
@@ -40,6 +43,7 @@ function App() {
           <List
             places={places}
             childClicked={childClicked}
+            isLoading={isLoading}
           />
         </Grid>
         <Grid item xs={12} md={8} >
